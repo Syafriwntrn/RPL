@@ -1,0 +1,55 @@
+/* Add some styling to the top bar */
+.top-bar {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+    color: #3498db;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.form-inline {
+    margin-left: auto; /* Move the search form to the right */
+}
+
+/* Style the main heading */
+.main-heading {
+    margin-top: 30px;
+}
+
+.main-heading h2 {
+    color: #3498db;
+}
+
+/* Style the card */
+.card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: box-shadow 0.3s;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the footer */
+.footer {
+    background-color: #3498db;
+    color: #fff;
+    padding: 20px 0;
+}
+
+/* Add some spacing to the bottom of the page */
+body {
+    margin-bottom: 50px;
+}

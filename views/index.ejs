@@ -1,0 +1,141 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MobileMajesty</title>
+    <link rel="shortcut icon" href="img/logo1.jpg">
+    <!-- Bootstrap 4.5 CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap" rel="stylesheet">
+    
+</head>
+
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <p> Explore and Discover your choice of mobile phone! </p>
+        </div>
+    </div>
+    <!-- End Top Bar -->
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-center">
+        <div class="container text-center">
+            <a class="navbar-brand" href="#">MobileMajesty</a>
+            <form class="form-inline" action="/" method="GET" id="searchForm">
+                <div class="form-group">
+                    <label for="searchInput" class="sr-only">Search</label>
+                    <input type="text" class="form-control" id="searchInput" name="query" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
+            </form>
+
+            </button>
+                <a class="navbar-brand" href="/">Home</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                    </ul>
+                </div>
+            </button>
+    
+            <button class="btn btn-primary" onclick="location.href='login.html'">Login</button>
+        </div>
+    </nav>
+    <!-- End Navigation -->
+
+    <!-- Main Page Heading -->
+    <div class="main-heading text-center mt-4">
+        <h2>Welcome to Our Website</h2>
+        <% if (searchTerm) { %>
+            <p>Search results for "<%= searchTerm %>":</p>
+        <% } else { %>
+            <p>Explore and Discover your choice of mobile phone!</p>
+        <% } %>
+    </div>
+    <!-- End Main Page Heading -->
+
+    <!-- Three Column Section -->
+    <div class="container mt-5">
+        <div class="row">
+            <% data.forEach(item => { %>
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <img src="<%= item.picture %>" class="card-img-top" alt="<%= item.name %>">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= item.name %></h5>
+                            <!-- Add a unique identifier to the specifications to target them individually -->
+                            <p class="card-text specifications" id="specifications_<%= item.id %>" style="display: none;"><%= item.specifications %></p>
+                            <a href="#" class="btn btn-primary view-details" data-itemid="<%= item.id %>">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    
+    <script>
+        document.querySelectorAll('.view-details').forEach(button => {
+            button.addEventListener('click', function(event) {
+                event.preventDefault();
+                const itemId = this.getAttribute('data-itemid');
+                const specificationsElement = document.getElementById(`specifications_${itemId}`);
+            
+                if (specificationsElement.style.display === 'none') {
+                    specificationsElement.style.display = 'block';
+                } else {
+                    specificationsElement.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <!-- End Three Column Section -->
+
+    <!-- Start Footer -->
+    <footer class="footer mt-5">
+        <div class="container text-center">
+            <p>&copy; <%= new Date().getFullYear() %> MobileMajesty. All Rights Reserved.</p>
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <!-- Script Source Files -->
+    <!-- jQuery -->
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <!-- Bootstrap 4.5 JS -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Popper JS -->
+    <script src="js/popper.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="js/all.min.js"></script>
+    <!-- Your Custom Script -->
+    <script src="js/script.js"></script>
+    <!-- End Script Source Files -->
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+    
+            // Fetch the value entered by the user
+            const searchTerm = document.getElementById('searchInput').value;
+    
+            // Set the value of the hidden input
+            document.getElementById('hiddenSearchInput').value = searchTerm;
+    
+            // Submit the form
+            this.submit();
+        });
+    </script>
+    <link rel="stylesheet" href="/css/style.css">
+</body>
+
+</html>

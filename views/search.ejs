@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <!-- Add your stylesheets, scripts, or other head elements here -->
+
+    <!-- Bootstrap CSS (example, adjust as needed) -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="search-bar mx-auto">
+            <form class="form-inline" id="searchForm">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+        <div id="searchResults" class="mt-4"></div>
+    </div>
+
+    <!-- Add your footer, scripts, or other body elements here -->
+
+    <!-- Bootstrap JS and Popper.js (example, adjust as needed) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Fetch the value entered by the user
+            const searchTerm = document.getElementById('searchInput').value;
+
+            // Make a request to the server to get search results
+            fetch(`/search?query=${encodeURIComponent(searchTerm)}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Display search results
+                    displaySearchResults(data);
+                })
+                .catch(error => console.error('Error fetching search results:', error));
+        });
+
+        function displaySearchResults(results) {
+            // Get the container to display search results
+            const searchResultsContainer = document.getElementById('searchResults');
+
+            // Clear previous results
+            searchResultsContainer.innerHTML = '';
+
+            // Display new results
+            results.forEach(result => {
+                // Create a container for each result
+                const resultItem = document.createElement('div');
+                resultItem.classList.add('result-item');
+
+                // Create individual elements for result properties
+                const nameElement = document.createElement('h3');
+                nameElement.textContent = result.name; // Change 'name' to the actual property you want to display
+                // You can add more elements for other properties
+
+                // Append elements to the result container
+                resultItem.appendChild(nameElement);
+                // Append the result container to the main container
+                searchResultsContainer.appendChild(resultItem);
+            });
+
+            if (results.length === 0) {
+                const noResultsMessage = document.createElement('p');
+                noResultsMessage.textContent = 'No matching items found.';
+                searchResultsContainer.appendChild(noResultsMessage);
+                return;
+            }
+        }
+
+        
+    </script>
+</body>
+</html>
